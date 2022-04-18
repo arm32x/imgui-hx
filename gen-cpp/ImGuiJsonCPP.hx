@@ -951,23 +951,23 @@ class ImGuiJsonCPP
     {
         return switch _in.trim()
         {
-            case 'int', 'signed int'           : macro : Int;
-            case 'unsigned int'                : macro : UInt;
-            case 'short', 'signed short'       : macro : cpp.Int16;
-            case 'unsigned short'              : macro : cpp.UInt16;
-            case 'float'                       : macro : cpp.Float32;
-            case 'double'                      : macro : Float;
-            case 'bool'                        : macro : Bool;
-            case 'char', 'const char', '_charPtr' : macro : cpp.Char;
-            case 'signed char'                 : macro : cpp.Int8;
-            case 'unsigned char'               : macro : cpp.UInt8;
-            case 'int64_t'                     : macro : cpp.Int64;
-            case 'uint64_t'                    : macro : cpp.UInt64;
-            case 'va_list', '...'              : macro : cpp.VarArg;
-            case 'size_t'                      : macro : cpp.SizeT;
-            case 'void'                        : _nativeVoid ? macro : cpp.Void : macro : Void;
-            case 'T'                           : macro : T;
-            case 'ImVector'                    : macro : ImVector<T>;
+            case 'int', 'signed int'                        : macro : Int;
+            case 'unsigned int'                             : macro : UInt;
+            case 'short', 'signed short'                    : macro : cpp.Int16;
+            case 'unsigned short'                           : macro : cpp.UInt16;
+            case 'float'                                    : macro : cpp.Float32;
+            case 'double'                                   : macro : Float;
+            case 'bool'                                     : macro : Bool;
+            case 'char', 'const char', '_charPtr'           : macro : cpp.Char;
+            case 'signed char'                              : macro : cpp.Int8;
+            case 'unsigned char'                            : macro : cpp.UInt8;
+            case 'int64_t', 'long long', 'signed long long' : macro : cpp.Int64;
+            case 'uint64_t', 'unsigned long long'           : macro : cpp.UInt64;
+            case 'va_list', '...'                           : macro : cpp.VarArg;
+            case 'size_t'                                   : macro : cpp.SizeT;
+            case 'void'                                     : _nativeVoid ? macro : cpp.Void : macro : Void;
+            case 'T'                                        : macro : T;
+            case 'ImVector'                                 : macro : ImVector<T>;
             case _other: TPath({ pack: [ ], name : _other });
         }
     }
