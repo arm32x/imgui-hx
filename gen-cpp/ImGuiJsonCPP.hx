@@ -873,6 +873,11 @@ class ImGuiJsonCPP
             return macro : ImVectorcharPointer;
         }
 
+        if (_in == 'ImVector_T *')
+        {
+            return macro : cpp.Star<ImVector<T>>;
+        }
+
         if (cleaned.startsWith('ImVector_'))
         {
             var hxType = cleaned.replace('ImVector_', '');
