@@ -80,12 +80,24 @@ class ImGuiJsonCPP
                 pos    : null,
                 meta   : [ { name: ':enum', pos : null } ],
                 fields : [ for (value in values) {
-                    name : value.name.replace(name, ''),
+                    name : sanitizeIdentifier(value.name.replace(name, '')),
                     kind : FVar(macro : Int, { pos: null, expr: EConst(CInt('${value.calc_value}')) }),
                     pos  : null,
                 } ]
             }
         ];
+    }
+
+    /**
+     * Ensure a given string is a valid Haxe identifier.
+     */
+    private function sanitizeIdentifier(name : String) : String
+    {
+        if (name.charCodeAt(0) >= '0'.code && name.charCodeAt(0) <= '9'.code)
+        {
+            return '_' + name;
+        }
+        return name;
     }
 
     /**
