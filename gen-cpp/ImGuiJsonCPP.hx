@@ -53,6 +53,22 @@ class ImGuiJsonCPP
                 continue;
             }
 
+            if (value.startsWith("ImBitArray"))
+            {
+                // Create an empty class for each ImBitArray typedef since Haxe
+                // doesn't support templates with values.
+                final struct    = macro class $name {};
+                struct.isExtern = true;
+                struct.meta     = [
+                    { name: ':keep', pos : null },
+                    { name: ':structAccess', pos : null },
+                    { name: ':include', pos : null, params: [ macro $i{ '"imgui.h"' } ] },
+                    { name: ':native', pos : null, params: [ macro $i{ '"$value"' } ] }
+                ];
+                gen.push(struct);
+                continue;
+            }
+
             gen.push({ pack: [ 'imguicpp' ], name: name, pos: null, fields: [], kind: TDAlias(parseNativeString(value)) });
         }
 
