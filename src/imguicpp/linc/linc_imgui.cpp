@@ -196,6 +196,11 @@ namespace ImGui {
         return _res;
     }
 
+    void linc_ShowStackToolWindow(bool* p_open) {
+        ImGui::ShowStackToolWindow(p_open);
+        if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
+    }
+
     void linc_ShowMetricsWindow(bool* p_open) {
         ImGui::ShowMetricsWindow(p_open);
         if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
@@ -229,7 +234,7 @@ namespace ImGui {
         return _res;
     }
 
-    void linc_SetAllocatorFunctions(void*(*alloc_func)(size_t sz,void* user_data), void(*free_func)(void* ptr,void* user_data), void* user_data) {
+    void linc_SetAllocatorFunctions(ImGuiMemAllocFunc alloc_func, ImGuiMemFreeFunc free_func, void* user_data) {
         ImGui::SetAllocatorFunctions(alloc_func,free_func,user_data);
         if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
     }
@@ -244,6 +249,11 @@ namespace ImGui {
         bool _res = ImGui::Selectable(label,p_selected,flags,size);
         if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
         return _res;
+    }
+
+    void linc_RenderPlatformWindowsDefault(void* platform_render_arg, void* renderer_render_arg) {
+        ImGui::RenderPlatformWindowsDefault(platform_render_arg,renderer_render_arg);
+        if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
     }
 
     bool linc_RadioButton(const char* label, bool active) {
@@ -430,6 +440,12 @@ namespace ImGui {
         return _res;
     }
 
+    ImGuiViewport* linc_FindViewportByPlatformHandle(void* platform_handle) {
+        ImGuiViewport* _res = ImGui::FindViewportByPlatformHandle(platform_handle);
+        if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
+        return _res;
+    }
+
     void linc_End() {
         ImGui::End();
         if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
@@ -587,11 +603,6 @@ namespace ImGui {
         bool _res = ImGui::Checkbox(label,v);
         if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
         return _res;
-    }
-
-    void linc_CalcListClipping(int items_count, float items_height, int* out_items_display_start, int* out_items_display_end) {
-        ImGui::CalcListClipping(items_count,items_height,out_items_display_start,out_items_display_end);
-        if (linc_Helpers_flushCallbacks != NULL) (*linc_Helpers_flushCallbacks)();
     }
 
     void linc_BulletText(const char* fmt, ...) {

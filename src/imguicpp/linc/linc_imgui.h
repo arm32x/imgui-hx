@@ -70,6 +70,8 @@ namespace ImGui {
 
     bool linc_SliderAngle(const char* label, float* v_rad, float v_degrees_min=-360.0f, float v_degrees_max=+360.0f, const char* format="%.0f deg", ImGuiSliderFlags flags=0);
 
+    void linc_ShowStackToolWindow(bool* p_open=NULL);
+
     void linc_ShowMetricsWindow(bool* p_open=NULL);
 
     void linc_ShowDemoWindow(bool* p_open=NULL);
@@ -82,11 +84,13 @@ namespace ImGui {
 
     bool linc_SetDragDropPayload(const char* type, const void* data, size_t sz, ImGuiCond cond=0);
 
-    void linc_SetAllocatorFunctions(void*(*alloc_func)(size_t sz, void* user_data), void(*free_func)(void* ptr, void* user_data), void* user_data=NULL);
+    void linc_SetAllocatorFunctions(ImGuiMemAllocFunc alloc_func, ImGuiMemFreeFunc free_func, void* user_data=NULL);
 
     bool linc_Selectable(const char* label, bool selected=false, ImGuiSelectableFlags flags=0, const ImVec2& size=ImVec2(0, 0));
 
     bool linc_Selectable(const char* label, bool* p_selected, ImGuiSelectableFlags flags=0, const ImVec2& size=ImVec2(0, 0));
+
+    void linc_RenderPlatformWindowsDefault(void* platform_render_arg=NULL, void* renderer_render_arg=NULL);
 
     bool linc_RadioButton(const char* label, bool active);
 
@@ -152,11 +156,13 @@ namespace ImGui {
 
     ImGuiID linc_GetID(const void* ptr_id);
 
+    ImGuiViewport* linc_FindViewportByPlatformHandle(void* platform_handle);
+
     void linc_End();
 
-    bool linc_DragScalarN(const char* label, ImGuiDataType data_type, void* p_data, int components, float v_speed, const void* p_min=NULL, const void* p_max=NULL, const char* format=NULL, ImGuiSliderFlags flags=0);
+    bool linc_DragScalarN(const char* label, ImGuiDataType data_type, void* p_data, int components, float v_speed=1.0f, const void* p_min=NULL, const void* p_max=NULL, const char* format=NULL, ImGuiSliderFlags flags=0);
 
-    bool linc_DragScalar(const char* label, ImGuiDataType data_type, void* p_data, float v_speed, const void* p_min=NULL, const void* p_max=NULL, const char* format=NULL, ImGuiSliderFlags flags=0);
+    bool linc_DragScalar(const char* label, ImGuiDataType data_type, void* p_data, float v_speed=1.0f, const void* p_min=NULL, const void* p_max=NULL, const char* format=NULL, ImGuiSliderFlags flags=0);
 
     bool linc_DragIntRange2(const char* label, int* v_current_min, int* v_current_max, float v_speed=1.0f, int v_min=0, int v_max=0, const char* format="%d", const char* format_max=NULL, ImGuiSliderFlags flags=0);
 
@@ -205,8 +211,6 @@ namespace ImGui {
     bool linc_CheckboxFlags(const char* label, unsigned int* flags, unsigned int flags_value);
 
     bool linc_Checkbox(const char* label, bool* v);
-
-    void linc_CalcListClipping(int items_count, float items_height, int* out_items_display_start, int* out_items_display_end);
 
     void linc_BulletText(const char* fmt, ...);
 
