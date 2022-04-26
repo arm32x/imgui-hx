@@ -30,13 +30,13 @@
 
         <section if="linc_sdl">
             <file name="${IMGUI}/backends/imgui_impl_sdl.cpp" />
-            <compilerflag value="-I${LINC_IMGUI_PATH}../linc_sdl/lib/sdl/include/" />
+            <compilerflag value="-I${haxelib:linc_sdl}/lib/sdl/include/" />
         </section>
 
         <section if="linc_opengl">
             <section unless="android || ios || tvos">
                 <compilerflag value="-DIMGUI_IMPL_OPENGL_LOADER_GLEW" />
-                <compilerflag value="-I${LINC_IMGUI_PATH}../linc_opengl/lib/glew/include/" />
+                <compilerflag value="-I${haxelib:linc_opengl}/lib/glew/include/" />
             </section>
             <file name="${IMGUI}/backends/imgui_impl_opengl3.cpp" />
         </section>
