@@ -31,6 +31,11 @@
         <section if="linc_sdl">
             <file name="${IMGUI}/backends/imgui_impl_sdl.cpp" />
             <compilerflag value="-I${haxelib:linc_sdl}/lib/sdl/include/" />
+
+            <compilerflag value='-I${haxelib:linc_sdl}/lib/sdl/include/configs/default/'    unless='windows || mac || linux'/>
+            <compilerflag value='-I${haxelib:linc_sdl}/lib/sdl/include/configs/linux/'      if='linux'/>
+            <compilerflag value='-I${haxelib:linc_sdl}/lib/sdl/include/configs/windows/'    if='windows'/>
+            <compilerflag value='-I${haxelib:linc_sdl}/lib/sdl/include/configs/mac/'        if='mac'/>
         </section>
 
         <section if="linc_opengl">
